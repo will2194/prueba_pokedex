@@ -79,7 +79,7 @@ class DetailView extends ConsumerWidget {
                                   Colors.white.withAlpha(30),
                                   BlendMode.srcIn,
                                 ),
-                                height: 200,
+                                height: 220,
                                 width: width / 2,
                                 fit: BoxFit.cover,
                               ),
