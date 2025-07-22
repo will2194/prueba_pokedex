@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:prueba_pokedex/features/details/data/models/pokemon_other_sprites_model.dart';
 
 part 'pokemon_sprites_model.g.dart';
 
@@ -7,8 +8,9 @@ part 'pokemon_sprites_model.g.dart';
 class PokemonSpritesModel extends Equatable {
   final String frontDefault;
   final String frontShiny;
+  final PokemonOtherSpritesModel other;
 
-  const PokemonSpritesModel(this.frontDefault, this.frontShiny);
+  const PokemonSpritesModel(this.frontDefault, this.frontShiny, this.other);
 
   Map<String, dynamic> toJson() => _$PokemonSpritesModelToJson(this);
 
@@ -23,5 +25,5 @@ class PokemonSpritesModel extends Equatable {
       .toList();
 
   @override
-  List<Object?> get props => [frontDefault, frontShiny];
+  List<Object?> get props => [frontDefault, frontShiny, other];
 }

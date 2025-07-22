@@ -10,6 +10,7 @@ PokemonSpritesModel _$PokemonSpritesModelFromJson(Map<String, dynamic> json) =>
     PokemonSpritesModel(
       json['front_default'] as String,
       json['front_shiny'] as String,
+      PokemonOtherSpritesModel.fromJson(json['other'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PokemonSpritesModelToJson(
@@ -17,4 +18,5 @@ Map<String, dynamic> _$PokemonSpritesModelToJson(
 ) => <String, dynamic>{
   'front_default': instance.frontDefault,
   'front_shiny': instance.frontShiny,
+  'other': instance.other,
 };

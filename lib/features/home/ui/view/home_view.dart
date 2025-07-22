@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prueba_pokedex/features/details/ui/view/detail_view.dart';
 import 'package:prueba_pokedex/features/home/ui/item/pokemon_item.dart';
 import 'package:prueba_pokedex/features/home/ui/viewmodel/home_view_model.dart';
 
@@ -44,7 +45,7 @@ class _HomeView extends ConsumerState<HomeView> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Color(0xFFDC0A2D),
       appBar: AppBar(
         title: Text(
           'Pokédex',
@@ -96,7 +97,17 @@ class _HomeView extends ConsumerState<HomeView> {
                   itemBuilder: (context, index) {
                     if (index < filteredList.length) {
                       final pokemon = filteredList[index];
-                      return pokemonItem(context, pokemon);
+                      return PokemonItem(
+                        pokemon: pokemon,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailView(pokemon: pokemon),
+                            ),
+                          );
+                        },
+                      );
                     } else {
                       return state.isLoadingMore
                           ? const Padding(

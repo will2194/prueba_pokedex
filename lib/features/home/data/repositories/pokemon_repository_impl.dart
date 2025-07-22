@@ -10,7 +10,7 @@ import 'package:prueba_pokedex/features/home/domain/repositories/pokemon_reposit
 import 'package:prueba_pokedex/shared/constants/urls.dart';
 
 class PokemonRepositoryImpl implements PokemonRepository {
-  static final String baseUrl = api_base_url;
+  static final String baseUrl = apiBaseUrl;
 
   PokemonRepositoryImpl();
 

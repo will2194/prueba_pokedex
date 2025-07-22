@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:prueba_pokedex/features/details/data/models/pokemon_move_model.dart';
 import 'package:prueba_pokedex/features/details/data/models/pokemon_sprites_model.dart';
 import 'package:prueba_pokedex/features/details/data/models/pokemon_stat_model.dart';
 import 'package:prueba_pokedex/features/details/data/models/pokemon_type_model.dart';
@@ -15,6 +16,7 @@ class PokemonDetailModel extends Equatable {
   final int height;
   final int weight;
   final List<PokemonStatModel> stats;
+  final List<PokemonMoveModel> moves;
 
   const PokemonDetailModel(
     this.id,
@@ -24,6 +26,7 @@ class PokemonDetailModel extends Equatable {
     this.height,
     this.weight,
     this.stats,
+    this.moves,
   );
 
   Map<String, dynamic> toJson() => _$PokemonDetailModelToJson(this);
@@ -39,5 +42,14 @@ class PokemonDetailModel extends Equatable {
       .toList();
 
   @override
-  List<Object?> get props => [id, name, sprites, types, height, weight, stats];
+  List<Object?> get props => [
+    id,
+    name,
+    sprites,
+    types,
+    height,
+    weight,
+    stats,
+    moves,
+  ];
 }

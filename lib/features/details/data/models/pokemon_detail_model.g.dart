@@ -19,6 +19,9 @@ PokemonDetailModel _$PokemonDetailModelFromJson(Map<String, dynamic> json) =>
       (json['stats'] as List<dynamic>)
           .map((e) => PokemonStatModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      (json['moves'] as List<dynamic>)
+          .map((e) => PokemonMoveModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PokemonDetailModelToJson(PokemonDetailModel instance) =>
@@ -30,4 +33,5 @@ Map<String, dynamic> _$PokemonDetailModelToJson(PokemonDetailModel instance) =>
       'height': instance.height,
       'weight': instance.weight,
       'stats': instance.stats,
+      'moves': instance.moves,
     };

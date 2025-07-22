@@ -4,43 +4,62 @@ extension PokemonTypeColor on String {
   Color get pokemonBackgroundColor {
     switch (toLowerCase()) {
       case 'normal':
-        return Colors.white;
+        return Color(0xFFAAA67F);
       case 'fire':
-        return Colors.red;
+        return Color(0xFFF57D31);
       case 'water':
-        return Colors.blueAccent;
+        return Color(0xFF6493EB);
       case 'electric':
-        return Colors.amber;
+        return Color(0xFFF9CF30);
       case 'grass':
-        return Colors.green;
+        return Color(0xFF74CB48);
       case 'ice':
-        return Colors.cyanAccent;
+        return Color(0xFF9AD6DF);
       case 'fighting':
-        return Colors.orange;
+        return Color(0xFFC12239);
       case 'poison':
-        return Colors.purple;
+        return Color(0xFFA43E9E);
       case 'ground':
-        return Colors.brown;
+        return Color(0xFFDEC16B);
       case 'flying':
-        return Colors.grey;
+        return Color(0xFFA891EC);
       case 'psychic':
-        return Colors.pinkAccent;
+        return Color(0xFFFB5584);
       case 'bug':
-        return Colors.lightGreen;
+        return Color(0xFFA7B723);
       case 'rock':
-        return Colors.brown;
+        return Color(0xFFB69E31);
       case 'ghost':
-        return Colors.deepPurple;
+        return Color(0xFF70559B);
       case 'dragon':
-        return Colors.indigo;
+        return Color(0xFF7037FF);
       case 'dark':
-        return Colors.black;
+        return Color(0xFF75574C);
       case 'steel':
-        return Colors.blueGrey;
+        return Color(0xFFB7B9D0);
       case 'fairy':
-        return Colors.pink;
+        return Color(0xFFE69EAC);
       default:
-        return Colors.grey;
+        return Color(0xFFDC0A2D);
+    }
+  }
+
+  String get shortLabel {
+    switch (this) {
+      case 'hp':
+        return 'HP';
+      case 'attack':
+        return 'ATK';
+      case 'defense':
+        return 'DEF';
+      case 'special-attack':
+        return 'SpA';
+      case 'special-defense':
+        return 'SpD';
+      case 'speed':
+        return 'SPD';
+      default:
+        return '?';
     }
   }
 }
