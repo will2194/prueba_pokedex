@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prueba_pokedex/features/ui/view/home_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prueba_pokedex/features/home/ui/view/home_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
