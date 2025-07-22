@@ -43,21 +43,12 @@ class _HomeView extends ConsumerState<HomeView> {
       return pokemon.name.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
 
-    if (state.isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
-    if (state.error != null) {
-      return Scaffold(body: Center(child: Text('Error: ${state.error}')));
-    }
-
     return Scaffold(
       backgroundColor: Colors.redAccent,
       appBar: AppBar(
         title: Text(
           'Pokédex',
           style: TextStyle(
-            fontFamily: 'Pokemon',
             fontSize: 24,
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -105,7 +96,7 @@ class _HomeView extends ConsumerState<HomeView> {
                   itemBuilder: (context, index) {
                     if (index < filteredList.length) {
                       final pokemon = filteredList[index];
-                      return pokemonItem(pokemon);
+                      return pokemonItem(context, pokemon);
                     } else {
                       return state.isLoadingMore
                           ? const Padding(

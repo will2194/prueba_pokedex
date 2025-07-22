@@ -21,15 +21,17 @@ class PokemonRepositoryImpl implements PokemonRepository {
       Uri.parse('$baseUrl/pokemon?offset=$offset&limit=$perPage'),
       headers: {'Content-Type': 'application/json'},
     );
-    final decoded = jsonDecode(response.body);
-    final results = decoded['results'];
-    if (response.statusCode != 200) {
+
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      final results = decoded['results'];
+
+      final data = results as List<dynamic>;
+      final pokemonList = PokemonModel.fromJsonList(data);
+
+      return pokemonList.map((e) => e.toEntity()).toList();
+    } else {
       throw PokemonUnexpectedFailure();
     }
-
-    final data = results as List<dynamic>;
-    final pokemonList = PokemonModel.fromJsonList(data);
-
-    return pokemonList.map((e) => e.toEntity()).toList();
   }
 }
