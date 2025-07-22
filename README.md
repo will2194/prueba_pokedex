@@ -6,8 +6,8 @@ Este proyecto es una aplicación Flutter que muestra información de Pokémon ut
 
 # Requisitos
 
-- Flutter 3.x o superior
-- Dart SDK 3.x
+- Flutter 3.32.5
+- Dart SDK 3.8.1
 - Android Studio o VS Code (con soporte Flutter)
 - Dispositivo físico o emulador configurado
 
