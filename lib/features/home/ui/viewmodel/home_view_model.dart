@@ -43,7 +43,7 @@ class PokemonListState {
 
 class PokemonListViewModel extends StateNotifier<PokemonListState> {
   final PokemonRepository repository;
-  final int _limit = 10;
+  final int _limit = 20;
 
   PokemonListViewModel(this.repository) : super(PokemonListState()) {
     loadInitial();
@@ -82,7 +82,6 @@ class PokemonListViewModel extends StateNotifier<PokemonListState> {
   }
 }
 
-// Provider del ViewModel
 final homeViewModelProvider =
     StateNotifierProvider<PokemonListViewModel, PokemonListState>((ref) {
       final repo = ref.watch(pokemonRepositoryProvider);

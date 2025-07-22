@@ -11,17 +11,17 @@ class PokemonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(getPokemonImage(pokemon.id)),
-            ),
-            title: Text(pokemon.name),
-            onTap: onTap,
-          ),
-        ],
+      child: ListTile(
+        leading: Image.network(
+          getPokemonImage(pokemon.id),
+          height: 50,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.error, size: 40, color: Colors.red),
+        ),
+        title: Text(pokemon.name),
+        subtitle: Text("#${pokemon.id.toString().padLeft(4, '0')}"),
+        onTap: onTap,
       ),
     );
   }

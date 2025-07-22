@@ -49,7 +49,7 @@ class DetailView extends ConsumerWidget {
                         Padding(
                           padding: EdgeInsets.only(right: 16),
                           child: Text(
-                            "#${pokemon.id.toString().padLeft(3, '0')}",
+                            "#${pokemon.id.toString().padLeft(4, '0')}",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.white,
