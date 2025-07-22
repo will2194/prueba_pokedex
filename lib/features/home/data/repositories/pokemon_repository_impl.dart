@@ -10,7 +10,7 @@ import 'package:prueba_pokedex/features/home/domain/repositories/pokemon_reposit
 import 'package:prueba_pokedex/shared/constants/urls.dart';
 
 class PokemonRepositoryImpl implements PokemonRepository {
-  static final String baseUrl = api_base_url;
+  static final String baseUrl = apiBaseUrl;
 
   PokemonRepositoryImpl();
 
@@ -21,15 +21,17 @@ class PokemonRepositoryImpl implements PokemonRepository {
       Uri.parse('$baseUrl/pokemon?offset=$offset&limit=$perPage'),
       headers: {'Content-Type': 'application/json'},
     );
-    final decoded = jsonDecode(response.body);
-    final results = decoded['results'];
-    if (response.statusCode != 200) {
+
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+      final results = decoded['results'];
+
+      final data = results as List<dynamic>;
+      final pokemonList = PokemonModel.fromJsonList(data);
+
+      return pokemonList.map((e) => e.toEntity()).toList();
+    } else {
       throw PokemonUnexpectedFailure();
     }
-
-    final data = results as List<dynamic>;
-    final pokemonList = PokemonModel.fromJsonList(data);
-
-    return pokemonList.map((e) => e.toEntity()).toList();
   }
 }
