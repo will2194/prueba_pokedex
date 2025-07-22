@@ -18,6 +18,8 @@ import 'package:prueba_pokedex/features/details/domain/entities/pokemon_stat.dar
 import 'package:prueba_pokedex/features/details/domain/entities/pokemon_stat_info.dart';
 import 'package:prueba_pokedex/features/details/domain/entities/pokemon_type.dart';
 import 'package:prueba_pokedex/features/details/domain/entities/pokemon_type_info.dart';
+import 'package:prueba_pokedex/features/home/domain/entities/pokemon.dart';
+import 'package:prueba_pokedex/shared/constants/urls.dart';
 
 extension PokemonDetailMapper on PokemonDetailModel {
   PokemonDetail toEntity() => PokemonDetail(
@@ -30,6 +32,9 @@ extension PokemonDetailMapper on PokemonDetailModel {
     types: types.map((type) => type.toEntity()).toList(),
     moves: moves.map((move) => move.toEntity()).toList(),
   );
+
+  Pokemon toPokemonEntity() =>
+      Pokemon(name: name, url: searchPokemonUrl(id.toString()));
 }
 
 extension PokemonSpritesMapper on PokemonSpritesModel {

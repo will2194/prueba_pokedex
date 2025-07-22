@@ -22,10 +22,12 @@ class _HomeView extends ConsumerState<HomeView> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels >=
+    final notifier = ref.read(homeViewModelProvider.notifier);
+    if (notifier.currentOrder == SortOrder.id &&
+        _scrollController.position.pixels >=
             _scrollController.position.maxScrollExtent - 200 &&
         !ref.read(homeViewModelProvider).isLoadingMore) {
-      ref.read(homeViewModelProvider.notifier).loadMore();
+      notifier.loadMore();
     }
   }
 
@@ -37,12 +39,8 @@ class _HomeView extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(homeViewModelProvider.notifier);
     final state = ref.watch(homeViewModelProvider);
-    final searchQuery = ref.watch(searchQueryProvider);
-
-    final filteredList = state.pokemons.where((pokemon) {
-      return pokemon.name.toLowerCase().contains(searchQuery.toLowerCase());
-    }).toList();
 
     return Scaffold(
       backgroundColor: Color(0xFFDC0A2D),
@@ -64,10 +62,61 @@ class _HomeView extends ConsumerState<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(child: searchBar()),
-              /*IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.filter_list, color: Colors.white),
-              ),*/
+              PopupMenuButton<SortOrder>(
+                onSelected: (order) {
+                  notifier.toggleSortOrder(order);
+                },
+                icon: const Icon(Icons.sort, color: Colors.white),
+                color: Colors.white,
+                iconSize: 40,
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: SortOrder.id,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.numbers,
+                          color: notifier.currentOrder == SortOrder.id
+                              ? Color(0xFFDC0A2D)
+                              : null,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Ordenar por Numero',
+                          style: TextStyle(
+                            color: notifier.currentOrder == SortOrder.id
+                                ? Color(0xFFDC0A2D)
+                                : null,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: SortOrder.alphabetical,
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.sort_by_alpha,
+                          color: notifier.currentOrder == SortOrder.alphabetical
+                              ? Color(0xFFDC0A2D)
+                              : null,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Orden alfabético',
+                          style: TextStyle(
+                            color:
+                                notifier.currentOrder == SortOrder.alphabetical
+                                ? Color(0xFFDC0A2D)
+                                : null,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -93,10 +142,10 @@ class _HomeView extends ConsumerState<HomeView> {
               ? Center(child: Text('Error: ${state.error}'))
               : ListView.builder(
                   controller: _scrollController,
-                  itemCount: filteredList.length + 1,
+                  itemCount: state.pokemons.length + 1,
                   itemBuilder: (context, index) {
-                    if (index < filteredList.length) {
-                      final pokemon = filteredList[index];
+                    if (index < state.pokemons.length) {
+                      final pokemon = state.pokemons[index];
                       return PokemonItem(
                         pokemon: pokemon,
                         onTap: () {
@@ -156,6 +205,9 @@ class _HomeView extends ConsumerState<HomeView> {
   }
 
   Widget searchBar() {
+    final notifier = ref.read(homeViewModelProvider.notifier);
+    final state = ref.watch(homeViewModelProvider);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
@@ -169,8 +221,20 @@ class _HomeView extends ConsumerState<HomeView> {
           ),
           prefixIcon: Icon(Icons.search, color: Colors.grey),
         ),
-        onChanged: (value) =>
-            ref.read(searchQueryProvider.notifier).state = value,
+        onChanged: (value) {
+          final query = value.trim().toLowerCase();
+          if (query.isEmpty && state.pokemons.length <= 1) {
+            notifier.loadInitial();
+          }
+        },
+        onSubmitted: (value) {
+          final query = value.trim().toLowerCase();
+          if (query.isNotEmpty) {
+            notifier.searchPokemons(value);
+          } else {
+            notifier.loadInitial();
+          }
+        },
       ),
     );
   }
