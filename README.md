@@ -1,16 +1,35 @@
 # prueba_pokedex
 
-Prueba Pokedex
+Este proyecto es una aplicación Flutter que muestra información de Pokémon utilizando la [PokeAPI](https://pokeapi.co/). Está desarrollado con **Clean Architecture**, **MVVM** y **Riverpod**.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+# Requisitos
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter 3.x o superior
+- Dart SDK 3.x
+- Android Studio o VS Code (con soporte Flutter)
+- Dispositivo físico o emulador configurado
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Instalación de dependencias
+
+flutter pub get
+
+---
+
+# Generación de archivos 
+
+flutter pub run build_runner build --delete-conflicting-outputs
+
+---
+
+# Ejecución de la aplicación
+
+- Abre un emulador o conecta un dispositivo físico.
+- Verifica que el dispositivo esté conectado:
+    - flutter devices
+- Ejecuta la app:
+    - flutter run
+

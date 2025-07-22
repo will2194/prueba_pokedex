@@ -64,10 +64,10 @@ class _HomeView extends ConsumerState<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(child: searchBar()),
-              IconButton(
+              /*IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.filter_list, color: Colors.white),
-              ),
+              ),*/
             ],
           ),
         ),
@@ -100,10 +100,42 @@ class _HomeView extends ConsumerState<HomeView> {
                       return PokemonItem(
                         pokemon: pokemon,
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailView(pokemon: pokemon),
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              transitionDuration: const Duration(
+                                milliseconds: 600,
+                              ),
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      DetailView(pokemon: pokemon),
+                              transitionsBuilder:
+                                  (
+                                    context,
+                                    animation,
+                                    secondaryAnimation,
+                                    child,
+                                  ) {
+                                    final fade = Tween(
+                                      begin: 0.0,
+                                      end: 1.0,
+                                    ).animate(animation);
+                                    final scale = Tween(begin: 0.9, end: 1.0)
+                                        .animate(
+                                          CurvedAnimation(
+                                            parent: animation,
+                                            curve: Curves.easeOut,
+                                          ),
+                                        );
+
+                                    return FadeTransition(
+                                      opacity: fade,
+                                      child: ScaleTransition(
+                                        scale: scale,
+                                        child: child,
+                                      ),
+                                    );
+                                  },
                             ),
                           );
                         },

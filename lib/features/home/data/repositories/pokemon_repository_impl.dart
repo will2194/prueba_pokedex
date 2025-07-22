@@ -16,7 +16,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
 
   @override
   Future<List<Pokemon>> getPokemonList({int offset = 0}) async {
-    final perPage = 10;
+    final perPage = 20;
     final Response response = await client.get(
       Uri.parse('$baseUrl/pokemon?offset=$offset&limit=$perPage'),
       headers: {'Content-Type': 'application/json'},
